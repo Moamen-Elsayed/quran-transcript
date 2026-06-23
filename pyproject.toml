@@ -52,5 +52,14 @@ mattr-docs = "quran_transcript.phonetics.generate_moshaf_docs:main"
 ph-ndx = "quran_transcript.phonetics.search:create_phonemes_index"
 
 # for addint data: https://setuptools.pypa.io/en/latest/userguide/datafiles.html#package-data
+[tool.pytest.ini_options]
+testpaths = [
+    "tests/phonetics_pytest.py",
+    "tests/aya_pytest.py",
+    "tests/test_sub_with_mapping_pytest.py",
+    "tests/test_phonemes_search_pytest.py",
+    "tests/test_explain_error_pytest.py",
+]
+
 [tool.setuptools.package-data]
 quran_transcript = ["quran-script/*"]

@@ -497,3 +497,78 @@ python merge_uthman_imlaey.py --uthmani-file quran-script/quran-uthmani-without-
 - [ ] adding tests
 - [ ] CI/CD with github
 
+## 👨‍💻 Developer Setup
+
+### Prerequisites
+
+Install **uv** (fast Python package manager) by following the official guide:  
+[https://docs.astral.sh/uv/#installation](https://docs.astral.sh/uv/#installation)
+
+Quick install (macOS/Linux):
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Quick install (Windows):
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+### Cloning
+
+```bash
+git clone https://github.com/obadx/quran-transcript.git
+cd quran-transcript
+```
+
+### Installing Dependencies
+
+```bash
+uv sync --all-extras
+```
+
+### Running Tests
+
+Run all tests (as configured in `pyproject.toml`):
+
+```bash
+uv run pytest
+```
+
+Run individual test files:
+
+```bash
+uv run pytest tests/phonetics_pytest.py -v
+uv run pytest tests/aya_pytest.py -vv
+uv run pytest tests/test_sub_with_mapping_pytest.py -vv
+uv run pytest tests/test_phonemes_search_pytest.py -vv
+uv run pytest tests/test_explain_error_pytest.py -vv
+```
+
+### ⚠️ Windows Users: Symlink Workaround
+
+The package data (`quran-script/`) is linked into `src/quran_transcript/` via a relative symlink:
+
+```
+src/quran_transcript/quran-script -> ../../quran-script/
+```
+
+This symlink may not work on Windows by default. To resolve this, either:
+
+1. **Enable Developer Mode** (Windows 10/11):  
+   Settings → Update & Security → For Developers → Enable Developer Mode.  
+   This allows Windows to support symlinks without elevated privileges.
+
+2. **Manually copy the directory** (no symlink needed):
+   ```cmd
+   rmdir src\quran_transcript\quran-script
+   xcopy /E quran-script src\quran_transcript\quran-script\
+   ```
+
+3. **Use `mklink /D`** (run as Administrator):
+   ```cmd
+   cd src\quran_transcript
+   rmdir quran-script
+   mklink /D quran-script ..\..\quran-script
+   ```
+
